@@ -36,9 +36,9 @@ pipeline {
                         env.BRANCH_NAME = 'unknown-branch'
                     }
 
-                    def branchName = env.BRANCH_NAME.replaceAll('/', '-')
+                    def commitID = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
                     def buildTime = new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone('UTC'))
-                    def newTag = "${branchName}-${buildTime}"
+                    def newTag = "${commitID}-${buildTime}"
                     
                     // 打印新的标签
                     echo "New tag to be pushed: ${newTag}"
