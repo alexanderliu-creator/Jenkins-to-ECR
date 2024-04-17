@@ -7,9 +7,11 @@ pipeline {
          stage('Clone repository') { 
             steps { 
                 script{
-                    checkout scm
-                    // 打印分支名
-                    echo "Branch name: ${env.BranchName}"
+                    def branchName = params.BranchName.split('/').last()
+                    // 使用简化的checkout命令动态指定分支名
+                    checkout scm: [$class: 'GitSCM', branches: [[name: "*/${branchName}"]], userRemoteConfigs: [[url: 'https://github.com/alexanderliu-creator/Jenkins-to-ECR/']]]
+                    // 打印当前分支名
+                    echo "Branch name: ${branchName}"
                 }
             }
         }
