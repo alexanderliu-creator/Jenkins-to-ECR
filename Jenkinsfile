@@ -9,7 +9,7 @@ pipeline {
                 script{
                     checkout scm
                     // 打印分支名
-                    echo "Branch name: ${env.BRANCH_NAME}"
+                    echo "Branch name: ${env.BranchName}"
                 }
             }
         }
