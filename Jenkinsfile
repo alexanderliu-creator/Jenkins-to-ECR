@@ -36,9 +36,14 @@ pipeline {
                         env.BRANCH_NAME = 'unknown-branch'
                     }
 
-                    def branchName = scm.branches.first().getExpandedName(env.getEnvironment())
+                    def branch_nem = scm.branches[0].name
+                    if (branch_nem.contains("*/")){
+                        branch_nem = branch_nem.split("\\*/")[1]
+                    }
+                    echo branch_nem
+                    
                     def buildTime = new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone('UTC'))
-                    def newTag = "${branchName}-${buildTime}"
+                    def newTag = "${branch_nem}-${buildTime}"
                     
                     // 打印新的标签
                     echo "New tag to be pushed: ${newTag}"
