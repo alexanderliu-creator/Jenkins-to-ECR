@@ -36,7 +36,7 @@ pipeline {
                         env.BRANCH_NAME = 'unknown-branch'
                     }
 
-                    def branchName = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+                    def branchName = sh(returnStdout:true,script:'git rev-parse --abbrev-ref HEAD').trim()
                     def buildTime = new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone('UTC'))
                     def newTag = "${branchName}-${buildTime}"
                     
