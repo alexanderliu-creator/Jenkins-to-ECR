@@ -29,10 +29,10 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                script {
+                script{
                     docker.withRegistry('https://186296540553.dkr.ecr.us-west-2.amazonaws.com/tamar-jenkins-test', 'ecr:us-west-2:181266c6-4c43-4088-bd78-cf889a1643e7') {
+                        dockerImage.push("${env.BUILD_NUMBER}")
                         dockerImage.push("latest")
-                        dockerImage.push("tamar-jenkins-test:${IMAGE_NAME}")
                     }
                 }
             }
