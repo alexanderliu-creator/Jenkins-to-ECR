@@ -36,14 +36,15 @@ pipeline {
                         env.BRANCH_NAME = 'unknown-branch'
                     }
 
-                    def branch_nem = scm.branches[0].name
-                    if (branch_nem.contains("*/")){
-                        branch_nem = branch_nem.split("\\*/")[1]
-                    }
-                    echo branch_nem
+                    // def branch_nem = scm.branches[0].name
+                    // if (branch_nem.contains("*/")){
+                    //     branch_nem = branch_nem.split("\\*/")[1]
+                    // }
+                    // echo branch_nem
                     
+                    def branchName = params.BranchName.split('/').last()
                     def buildTime = new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone('UTC'))
-                    def newTag = "${branch_nem}-${buildTime}"
+                    def newTag = "${branchName}-${buildTime}"
 
                     // 使用新的镜像标签进行推送
                     docker.withRegistry('https://186296540553.dkr.ecr.us-west-2.amazonaws.com/tamar-jenkins-test', 'ecr:us-west-2:181266c6-4c43-4088-bd78-cf889a1643e7') {
